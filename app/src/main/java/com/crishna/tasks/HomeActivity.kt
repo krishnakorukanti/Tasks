@@ -7,6 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.crishna.tasks.databinding.ActivityHomeBinding
+import com.crishna.tasks.databinding.ActivityMainBinding
 import com.crishna.tasks.models.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +16,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
+
     private lateinit var auth: FirebaseAuth
     private val tasksViewModel: TasksViewModel by viewModels()
 
@@ -24,10 +28,14 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         auth = Firebase.auth
         initObservers()
-
+        binding.floatingActionButton.setOnClickListener {
+            startActivity(Intent(this,CreateTaskActivity::class.java))
+        }
 
 
     }
@@ -41,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
             Log.d(TAG, "Data - ${it.toString()}")
 
         }
-        tasksViewModel.create(Task(title = "FirstTest", create_date = Timestamp.now()))
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
