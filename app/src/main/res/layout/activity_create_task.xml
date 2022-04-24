@@ -38,14 +38,21 @@
         android:id="@+id/dateAndTimeSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionEditText"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:inputType="time"
-        android:text="Date and Time"
-        android:layout_below="@id/descriptionEditText"
+        android:text="Date and Time" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeAndDateText"
+        android:visibility="gone"
+        android:layout_below="@+id/dateAndTimeSwitch"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
         />
-
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/completedSwitch"
         android:layout_width="match_parent"
@@ -53,7 +60,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="216dp"
-        android:layout_below="@id/dateAndTimeSwitch"
+        android:layout_below="@id/timeAndDateText"
         android:text="Completed"
        />
 

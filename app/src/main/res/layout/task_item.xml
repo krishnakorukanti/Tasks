@@ -54,6 +54,26 @@
                 android:checked="false"
                 android:text="Description"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateAndTime"
+            android:padding="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:text="Scheduled at : "/>
+            <TextView
+                android:id="@+id/dateAndTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:checked="false"
+                />
+        </LinearLayout>
 
     </LinearLayout>
 

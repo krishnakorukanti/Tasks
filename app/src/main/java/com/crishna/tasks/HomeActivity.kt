@@ -89,9 +89,7 @@ class HomeActivity : AppCompatActivity(),UpdateData {
 
 
 
-    override fun onTaskClicked(task: Task) {
-        //TODO("Not yet implemented")
-    }
+
 
     override fun onTaskChecked(task: Task) {
        task.isDone = !task.isDone
