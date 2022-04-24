@@ -1,5 +1,6 @@
 package com.crishna.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -37,7 +38,10 @@ class CreateTaskActivity : AppCompatActivity() {
     private fun onCreate(it: Boolean) {
         if (it) {
             tasksViewModel.getList()
-            finish()
+
+            val intent = Intent(this,HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
     }
     private fun initViews() {
@@ -60,7 +64,7 @@ class CreateTaskActivity : AppCompatActivity() {
                     id = UUID.randomUUID().toString()
                     title = titleEditText.text.toString()
                     description = descriptionEditText.text.toString()
-                    isDone = completedSwitch.isEnabled
+                    isDone = completedSwitch.isChecked
                     create_date = Timestamp.now()
                     update_date = Timestamp.now()
                 }

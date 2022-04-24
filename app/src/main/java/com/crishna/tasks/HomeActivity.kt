@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.crishna.tasks.databinding.ActivityHomeBinding
 import com.crishna.tasks.databinding.ActivityMainBinding
 import com.crishna.tasks.models.Task
@@ -15,12 +16,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(),UpdateData {
     private lateinit var binding: ActivityHomeBinding
 
     private lateinit var auth: FirebaseAuth
     private val tasksViewModel: TasksViewModel by viewModels()
 
+    private lateinit var tasksAdapter: TasksAdapter
+    private lateinit var tasks : List<Task>
 
     private companion object {
         private const val TAG = "HomeActivity"
@@ -41,13 +44,26 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        tasksViewModel.createLiveData.observe(this) {
-            Log.d(TAG, "Created")
-            onCreate(it)
-        }
+        tasksViewModel.getList()
+
         tasksViewModel.getListLiveData.observe(this) {
             Log.d(TAG, "Data - ${it.toString()}")
+            tasks = it
+            tasksAdapter = TasksAdapter(tasks,this,false)
 
+            // create  layoutManager
+            val layoutManager = LinearLayoutManager(this)
+
+            // pass it to rvLists layoutManager
+            binding.tasksRecyclerView.layoutManager = layoutManager
+            binding.tasksRecyclerView.adapter = tasksAdapter
+            binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
+                tasksAdapter = TasksAdapter(tasks,this,isChecked)
+                binding.tasksRecyclerView.adapter = tasksAdapter            }
+
+        }
+        tasksViewModel.updateLiveData.observe(this){
+            tasksViewModel.getList()
         }
 
     }
@@ -56,12 +72,7 @@ class HomeActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_home, menu)
         return true
     }
-    private fun onCreate(it: Boolean) {
-        if (it) {
-            tasksViewModel.getList()
 
-        }
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.homeLogout) {
@@ -74,5 +85,16 @@ class HomeActivity : AppCompatActivity() {
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+
+    override fun onTaskClicked(task: Task) {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onTaskChecked(task: Task) {
+       task.isDone = !task.isDone
+        tasksViewModel.update(task)
     }
 }
