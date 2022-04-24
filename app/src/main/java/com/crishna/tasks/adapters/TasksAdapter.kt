@@ -1,4 +1,4 @@
-package com.crishna.tasks
+package com.crishna.tasks.adapters
 
 import android.graphics.Paint
 import android.util.Log
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.crishna.tasks.interfaces.UpdateData
 import com.crishna.tasks.databinding.TaskItemBinding
 import com.crishna.tasks.models.Task
 import com.google.firebase.Timestamp

@@ -1,4 +1,4 @@
-package com.crishna.tasks
+package com.crishna.tasks.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +8,17 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.crishna.tasks.*
+import com.crishna.tasks.adapters.TasksAdapter
 import com.crishna.tasks.databinding.ActivityHomeBinding
-import com.crishna.tasks.databinding.ActivityMainBinding
+import com.crishna.tasks.interfaces.UpdateData
 import com.crishna.tasks.models.Task
-import com.google.firebase.Timestamp
+import com.crishna.tasks.viewmodels.TasksViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class HomeActivity : AppCompatActivity(),UpdateData {
+class HomeActivity : AppCompatActivity(), UpdateData {
     private lateinit var binding: ActivityHomeBinding
 
     private lateinit var auth: FirebaseAuth
@@ -37,7 +39,7 @@ class HomeActivity : AppCompatActivity(),UpdateData {
         auth = Firebase.auth
         initObservers()
         binding.floatingActionButton.setOnClickListener {
-            startActivity(Intent(this,CreateTaskActivity::class.java))
+            startActivity(Intent(this, CreateTaskActivity::class.java))
         }
 
 
